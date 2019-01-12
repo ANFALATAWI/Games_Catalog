@@ -1,0 +1,21 @@
+<html>
+   <head>
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+   </head>
+   <body>
+      <div class = 'pane'>
+         <h1>Studios</h1>
+         <a href="{{url_for('newStudio')}}" >
+            <h3> Add a New Studio </h3>
+         </a>
+         {% for studio in studios %}
+         <a href = '{{ url_for('studioGames', studio_id = studio.id) }}'>
+            <p><h2>{{studio.name}}</h2></p>
+            <p>{{"Founded %s, by %s" % (studio.founded_date, studio.founder)}}</p>
+         </a>
+         <p><a href = "{{url_for('editStudio',studio_id = studio.id)}}">Edit Studio</a></p>
+         <p> <a href = "{{url_for('deleteStudio',studio_id = studio.id)}}">Delete Studio</a> </p>
+         {% endfor %}
+      </div>
+   </body>
+</html>
