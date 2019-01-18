@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Studio, Game
@@ -13,23 +13,30 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+# JSON generating functions:
+
+# JSON for a specific studio
+@app.route('/studios/<int:studio_id>/games/JSON')
+def studioJSON(studio_id):
+	studio = session.query(Studio).filter_by(id=studio_id).one()
+	games = session.query(Game).filter_by(studio_id=studio_id).all()
+
+	return jsonify(Games=[i.serialize for i in games])
+
+# JSON for a spesefic game
+@app.route('/studios/<int:studio_id>/games/<int:game_id>/JSON')
+def gameJSON(studio_id, game_id):
+	game = session.query(Game).filter_by(id=game_id).one()
+	return jsonify(Game=game.serialize)
+
+# JSON for all studios
+@app.route('/studios/JSON')
+def studiosJSON():
+	studios = session.query(Studio).all()
+	return jsonify(Studios=[s.serialize for s in studios])
 
 
-# -------------------------------------------------------------
-# studios = [{'name':'Activision', 'id':'1', 'founded_date':'1979', 'founder':'David Crane'},
-# {'name':'Naughty Dog', 'id':'1', 'founded_date':'1979', 'founder':'David Crane'},
-# {'name':'Toys For Bob', 'id':'1', 'founded_date':'1979', 'founder':'David Crane'}]
-
-# studio = {'name':'Activision', 'id':'1', 'founded_date':'1979', 'founder':'David Crane'}
-
-# games = [{'name':'Spyro', 'id':'1', 'description':'Spyro is a game about a purple dragon', 'release_date':'1994', 'quantity':'20', 'price':'50$'},
-# {'name':'Crash Bandicoot', 'id':'1', 'description':'Spyro is a game about a purple dragon', 'release_date':'1994', 'quantity':'20', 'price':'50$'},
-# {'name':'Spyro', 'id':'1', 'description':'Spyro is a game about a purple dragon', 'release_date':'1994', 'quantity':'20', 'price':'50$'}]
-
-# game = {'name':'Spyro', 'id':'1', 'description':'Spyro is a game about a purple dragon', 'release_date':'1994', 'quantity':'20', 'price':'50$'}
-# -------------------------------------------------------------
-
-# JSON 
+# Website Pages functions:
 
 # Main landing page, showing a list of all studios
 @app.route('/')
