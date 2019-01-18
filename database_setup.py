@@ -48,6 +48,11 @@ class Game(Base):
 		'quantity':self.quantity,
 		'price':self.price,
 		}
-	
+
+engine = create_engine('sqlite:///studios.db')
+Base.metadata.create_all(engine)
+
+print "Database has been setup succesfully"
+
 
 
