@@ -1,28 +1,14 @@
 <html>
-
-
-<head>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-
-<body>
-
-<h1> Edit Studio Name</h1>
-
-
-<form action="#" method = 'post'>
-
-
-	<p>Name:</p>
-		<input type ='text' size='30' name='name' placeholder = '{{studio.name }}'>
-
-
-<input type='submit' value='Edit'>
-
-
-<a href = '{{url_for('showStudios')}}'> Cancel </a>
-
-</form>
-</body>
-
+   <head>
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+   </head>
+   <body>
+      <h1> Edit {{studio.name}}</h1>
+      <form action="#" method = 'post'>
+         <p>Name:</p>
+         <input type ='text' size='30' name='name' placeholder = '{{studio.name }}'>
+         <input type='submit' value='Edit'>
+         <a href = '{{url_for('showStudios')}}'> Cancel </a>
+      </form>
+   </body>
 </html>

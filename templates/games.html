@@ -1,58 +1,39 @@
 <html>
-	
-<head>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-	<body>
-		<div class = 'pane'>
-		<h1>{{ studio.name }}</h1>
-		
-		{% with messages = get_flashed_messages() %}
-      {% if messages %}
-          
-        <ul>
-        {% for message in messages %}
+   <head>
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+   </head>
+   <body>
+      <div class = 'pane'>
+         <h1>{{ studio.name }}</h1>
+         {% with messages = get_flashed_messages() %}
+         {% if messages %}
+         <ul>
+            {% for message in messages %}
             <li> <strong> {{ message }} </strong> </li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-    {% endwith %}
-
-
-
-
-
-    {% if games !=[] %}
-
-		<a href = "{{url_for('newGame', studio_id = studio.id )}}">Add a new game</a>
-	</br></br>
-
-	<h2>Games</h2>
-
-		{% for game in games %}
-
-		<p>{{game.name}}</p>
-	
-
-		<p>{{game.description}}</p>
-	
-
-		<p>{{game.price}}</p>
-	
-		<a href='{{url_for('editGame', studio_id = studio.id, game_id=game.id ) }}' >Edit</a>
-	</br>
-	<a href='{{url_for('deleteGame', studio_id = studio.id, game_id=game.id ) }}' >Delete</a>
-</br>
-</br>
-		{% endfor %}	
-
-
-
-		{% else %}
-		<p> You currently have no games. <p>
-		<a href = "{{url_for('newGame', studio_id = studio.id )}}">Add a new game</a>
-		{% endif %}
-</div>
-	</body>
-
+            {% endfor %}
+         </ul>
+         {% endif %}
+         {% endwith %}
+         {% if games !=[] %}
+         <a href = "{{url_for('newGame', studio_id = studio.id )}}">Add a new game</a>
+         </br></br>
+         <h2>Games</h2>
+         {% for game in games %}
+         <p>{{game.name}}</p>
+         <p>{{game.description}}</p>
+         <p>{{game.price}}</p>
+         <p>Available: {{game.quantity}} copies</p>
+         <a href='{{url_for('editGame', studio_id = studio.id, game_id=game.id ) }}' >Edit</a>
+         </br>
+         <a href='{{url_for('deleteGame', studio_id = studio.id, game_id=game.id ) }}' >Delete</a>
+         </br>
+         </br>
+         {% endfor %}	
+         {% else %}
+         <p> You currently have no games. 
+         <p>
+            <a href = "{{url_for('newGame', studio_id = studio.id )}}">Add a new game</a>
+            {% endif %}
+      </div>
+   </body>
 </html>

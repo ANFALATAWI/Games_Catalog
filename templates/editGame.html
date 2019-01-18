@@ -1,23 +1,14 @@
 <html>
-
-<head>
-<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-	</head>
-
-<body><h1> Edit Game </h1>
-
-<form action="#" method = 'post'>
-
-	<p>Quantity:</p>
-		<input type ='text' size='30' name='name' placeholder = '{{game.quantity }}'>
-
-<input type='submit' value='Edit'>
-
-
-<a href = '#'> Cancel </a>
-
-
-</form>
-</body>
+   <head>
+      <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+   </head>
+   <body>
+      <h1> Edit Game </h1>
+      <form action="#" method = 'post'>
+         <p>Quantity:</p>
+         <input type ='text' size='30' name='quantity' placeholder = '{{game.quantity}}'>
+         <input type='submit' value='Edit'>
+         <a href = '#'> Cancel </a>
+      </form>
+   </body>
 </html>
-
