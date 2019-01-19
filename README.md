@@ -11,17 +11,26 @@ A user can log in using the third party Google authentication system, and add th
 ## Getting Started
 ### Install the virtual machine
 Here Virtual Box + vagrant were used.
-[Install Virtual Box](https://www.virtualbox.org/wiki/Downloads)
-[Install Vagrant](https://www.vagrantup.com/downloads.html)
-[Download the VM configuration](https://github.com/udacity/fullstack-nanodegree-vm)
+* [Install Virtual Box](https://www.virtualbox.org/wiki/Downloads)
+* [Install Vagrant](https://www.vagrantup.com/downloads.html)
+* [Download the VM configuration](https://github.com/udacity/fullstack-nanodegree-vm)
+
 run `$ vagrant up`  to set up vagrant then `$ vagrant ssh`  to log in to the Linux VM.
 
 ### Set up the files
+Download the Games Catalog folder in your vagrant directory, run vagrant ssh, cd to /vagrant, where your .py files should exist:
 Run `$ python database_setup.py` to configure the database.
+
+This should creat a *studios.db* file in your directory, and you should see a message
+`Database has been setup succesfully`
+
 Run `$ python populate_database.py` to populate the database with initial dummy data.
 
+This should print a message
+`**Data added succsesfully**`
+
 ## Running this program
-To run this program, download the Games Catalog folder in your vagrant directory, run vagrant ssh, cd to /vagrant, where your games_catalog.py file should exist, and type `$ python games_catalog.py`  to run.
+To run this program, type `$ python games_catalog.py`  to run.
 
 ### reference:
 Udacity’s [Restaurant Menu website](https://github.com/udacity/Full-Stack-Foundations/tree/master/Lesson-4/Final-Project)
