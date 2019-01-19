@@ -127,7 +127,7 @@ def gconnect():
     output += '<img src="'
     output += login_session['picture']
     output += ' " style = "width: 300px; height: 300px;border-radius: 150px;' \
-    '-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
+              '-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now logged in as %s" % login_session['username'])
     print "done!"
     return output
@@ -171,7 +171,7 @@ def gdisconnect():
     print 'User name is: '
     print login_session['username']
     url = 'https://accounts.google.com/o/oauth2/revoke?token=%s' \
-    ''% login_session['access_token']
+          '' % login_session['access_token']
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     print 'result is '
