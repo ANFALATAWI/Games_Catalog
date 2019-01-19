@@ -31,9 +31,8 @@
          </br>
          {% endfor %}	
          {% else %}
-         <p> You currently have no games. 
+         <p> There are currently no games. 
          <p>
-            <a href = "{{url_for('newGame', studio_id = studio.id )}}">Add a new game</a>
             {% endif %}
       </div>
    </body>
