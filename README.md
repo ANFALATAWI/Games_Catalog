@@ -21,7 +21,7 @@ run `$ vagrant up`  to set up vagrant then `$ vagrant ssh`  to log in to the Lin
 Download the Games Catalog folder in your vagrant directory, run vagrant ssh, cd to /vagrant, where your .py files should exist:
 Run `$ python database_setup.py` to configure the database.
 
-This should creat a studios.db file in your directory, and you should see a message
+This should creat a *studios.db* file in your directory, and you should see a message
 `Database has been setup succesfully`
 
 Run `$ python populate_database.py` to populate the database with initial dummy data.
