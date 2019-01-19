@@ -7,13 +7,22 @@ from sqlalchemy import create_engine
 
 Base = declarative_base()
 
+class User(Base):
+	__tablename__ = 'user'
+
+	id = Column(Integer, primary_key=True)
+	name = Column(String(250), nullable=False)
+	email = Column(String(250), nullable=False)
+	picture = Column(String(250))
+
 class Studio(Base):
 	__tablename__ = 'studio'
 	id = Column(Integer, primary_key=True)
 	name = Column(String(250), nullable=False)
 	founded_date = Column(String(10))
 	founder = Column(String(30))
-
+	user_id = Column(Integer, ForeignKey('user.id'))
+	user = relationship(User)
 	# Returning object in easily serializeable format for JSON
 	@property
 	def serialize(self):
@@ -33,6 +42,8 @@ class Game(Base):
 	release_date = Column(String(10))
 	quantity = Column(Integer)
 	price = Column(String(8))
+	user_id = Column(Integer, ForeignKey('user.id'))
+	user = relationship(User)
 
 	# Relational mapping
 	studio_id = Column(Integer, ForeignKey('studio.id'))
