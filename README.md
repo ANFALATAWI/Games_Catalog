@@ -14,6 +14,7 @@ Here Virtual Box + vagrant were used.
 [Install Virtual Box](https://www.virtualbox.org/wiki/Downloads)
 [Install Vagrant](https://www.vagrantup.com/downloads.html)
 [Download the VM configuration](https://github.com/udacity/fullstack-nanodegree-vm)
+
 run `$ vagrant up`  to set up vagrant then `$ vagrant ssh`  to log in to the Linux VM.
 
 ### Set up the files
