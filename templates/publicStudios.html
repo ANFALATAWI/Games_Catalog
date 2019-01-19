@@ -4,10 +4,6 @@
    </head>
    <body>
       <div class = 'pane'>
-      	<br/>
-      	<a href="{{url_for('showLogin')}}" ><h2>Sign In</h2></a>
-      	<a href="{{url_for('gdisconnect')}}" ><h2>Sign Out</h2></a>
-
          <h1>Studios</h1>
 
          <!--MESSAGE FLASHING CODE -->
@@ -21,6 +17,7 @@
          {% endif %}
          {% endwith %}
          <!--END OF MESSAGE FLASHING CODE -->
+         
          <a href="{{url_for('newStudio')}}" >
             <h3> Add a New Studio </h3>
          </a>
@@ -32,8 +29,6 @@
          </p>
          <p>{{"Founded %s, by %s" % (studio.founded_date, studio.founder)}}</p>
          </a>
-         <p><a href = "{{url_for('editStudio',studio_id = studio.id)}}">Edit Studio</a></p>
-         <p> <a href = "{{url_for('deleteStudio',studio_id = studio.id)}}">Delete Studio</a> </p>
          {% endfor %}
          {% else %}
          <p> You currently have no Studios. 
