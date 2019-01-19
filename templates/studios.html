@@ -5,21 +5,37 @@
    <body>
       <div class = 'pane'>
          <h1>Studios</h1>
+
+         <!--MESSAGE FLASHING CODE -->
+         {% with messages = get_flashed_messages() %}
+         {% if messages %}
+         <ul>
+            {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+            {% endfor %}
+         </ul>
+         {% endif %}
+         {% endwith %}
+         <!--END OF MESSAGE FLASHING CODE -->
+         
          <a href="{{url_for('newStudio')}}" >
             <h3> Add a New Studio </h3>
          </a>
          {% if studios !=[] %}
          {% for studio in studios %}
          <a href = '{{ url_for('studioGames', studio_id = studio.id) }}'>
-            <p><h2>{{studio.name}}</h2></p>
-            <p>{{"Founded %s, by %s" % (studio.founded_date, studio.founder)}}</p>
+         <p>
+         <h2>{{studio.name}}</h2>
+         </p>
+         <p>{{"Founded %s, by %s" % (studio.founded_date, studio.founder)}}</p>
          </a>
          <p><a href = "{{url_for('editStudio',studio_id = studio.id)}}">Edit Studio</a></p>
          <p> <a href = "{{url_for('deleteStudio',studio_id = studio.id)}}">Delete Studio</a> </p>
          {% endfor %}
          {% else %}
-		<p> You currently have no Studios. <p>
-		{% endif %}
+         <p> You currently have no Studios. 
+         <p>
+            {% endif %}
       </div>
    </body>
 </html>
