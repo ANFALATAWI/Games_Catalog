@@ -31,7 +31,8 @@ This should print a message
 
 ## Running this program
 To run this program, type `$ python games_catalog.py`  to run.
+Now to view this website, navigate to http://localhost:5000/ on your favorite web browser, you should see the landing page.
 
-### reference:
+### Reference:
 Udacity’s [Restaurant Menu website](https://github.com/udacity/Full-Stack-Foundations/tree/master/Lesson-4/Final-Project)
 
