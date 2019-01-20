@@ -11,6 +11,7 @@ from oauth2client.client import FlowExchangeError
 import httplib2
 import json
 import requests
+from functools import wraps
 
 # Flask configuration
 app = Flask(__name__)
@@ -27,6 +28,15 @@ session = DBSession()
 
 # Create anti-forgery state token
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' in login_session:
+            return f(*args, **kwargs)
+        else:
+            flash('You are not allowed to access there')
+            return redirect('/login')
+    return decorated_function
 
 @app.route('/login')
 def showLogin():
@@ -183,6 +193,7 @@ def gdisconnect():
         del login_session['email']
         del login_session['picture']
         response = make_response(json.dumps('Successfully disconnected.'), 200)
+        flash("Signed out succesfully")
         response.headers['Content-Type'] = 'application/json'
         return redirect(url_for('showStudios'))
     else:
@@ -232,10 +243,8 @@ def showStudios():
 
 
 @app.route('/studios/new', methods=['GET', 'POST'])
+@login_required
 def newStudio():
-    # Verify user is logged in to have creating new functionality
-    if 'username' not in login_session:
-        return redirect('/login')
 
     if request.method == 'POST':
         newStudio = Studio(name=request.form['name'],
@@ -251,11 +260,8 @@ def newStudio():
 
 
 @app.route('/studios/<int:studio_id>/edit', methods=['GET', 'POST'])
+@login_required
 def editStudio(studio_id):
-    # Verify user is logged in to have editing new functionality
-    if 'username' not in login_session:
-        return redirect('/login')
-
     editedStudio = session.query(Studio).filter_by(id=studio_id).one()
     if not login_session['user_id'] == editedStudio.user_id:
         # Show warning that this is not the owner of the studio
@@ -276,19 +282,20 @@ def editStudio(studio_id):
 
 
 @app.route('/studios/<int:studio_id>/delete', methods=['GET', 'POST'])
+@login_required
 def deleteStudio(studio_id):
-    # Verify user is logged in to have creating new functionality
-    if 'username' not in login_session:
-        return redirect('/login')
-
     studioToDelete = session.query(Studio).filter_by(id=studio_id).one()
-    if request.method == 'POST':
-        session.delete(studioToDelete)
-        session.commit()
-        flash("Studio deleted!")
-        return redirect(url_for('showStudios', studio_id=studio_id))
+    if not login_session['user_id'] == studioToDelete.user_id:
+        # Show warning that this is not the owner of the studio
+        return "You are not the creator of this studio, you cannot delete it."
     else:
-        return render_template('deleteStudio.html', studio=studioToDelete)
+        if request.method == 'POST':
+            session.delete(studioToDelete)
+            session.commit()
+            flash("Studio deleted!")
+            return redirect(url_for('showStudios', studio_id=studio_id))
+        else:
+            return render_template('deleteStudio.html', studio=studioToDelete)
 
 
 @app.route('/studios/<int:studio_id>')
@@ -309,48 +316,48 @@ def studioGames(studio_id):
 
 @app.route('/studios/<int:studio_id>/games/<int:game_id>/edit',
            methods=['GET', 'POST'])
+@login_required
 def editGame(studio_id, game_id):
-    # Verify user is logged in to have editing functionality
-    if 'username' not in login_session:
-        return redirect('/login')
-
     editedGame = session.query(Game).filter_by(id=game_id).one()
-    if request.method == 'POST':
-        # if request.form['quantity']:
-        editedGame.quantity = request.form['quantity']
-        session.add(editedGame)
-        session.commit()
-        flash("Game edited!")
-        return redirect(url_for('studioGames', studio_id=studio_id))
+    if not login_session['user_id'] == editedGame.user_id:
+        # Show warning that this is not the owner of the studio
+        return "You are not the creator of this studio, you cannot edit."
     else:
-        return render_template('editGame.html',
-                               studio_id=studio_id,
-                               game_id=game_id,
-                               game=editedGame)
+        if request.method == 'POST':
+            # if request.form['quantity']:
+            editedGame.quantity = request.form['quantity']
+            session.add(editedGame)
+            session.commit()
+            flash("Game edited!")
+            return redirect(url_for('studioGames', studio_id=studio_id))
+        else:
+            return render_template('editGame.html',
+                                   studio_id=studio_id,
+                                   game_id=game_id,
+                                   game=editedGame)
 
 
 @app.route('/studios/<int:studio_id>/games/<int:game_id>/delete',
            methods=['GET', 'POST'])
+@login_required
 def deleteGame(studio_id, game_id):
-    # Verify user is logged in to have creating new functionality
-    if 'username' not in login_session:
-        return redirect('/login')
-
     gameToDelete = session.query(Game).filter_by(id=game_id).one()
-    if request.method == 'POST':
-        session.delete(gameToDelete)
-        session.commit()
-        flash("Game Deleted!")
-        return redirect(url_for('studioGames', studio_id=studio_id))
+    if not login_session['user_id'] == gameToDelete.user_id:
+        # Show warning that this is not the owner of the studio
+        return "You are not the creator of this studio, you cannot delete it."
     else:
-        return render_template('deleteGame.html', game=gameToDelete)
+        if request.method == 'POST':
+            session.delete(gameToDelete)
+            session.commit()
+            flash("Game Deleted!")
+            return redirect(url_for('studioGames', studio_id=studio_id))
+        else:
+            return render_template('deleteGame.html', game=gameToDelete)
 
 
 @app.route('/studios/<int:studio_id>/games/new', methods=['GET', 'POST'])
+@login_required
 def newGame(studio_id):
-    # Verify user is logged in to have creating new functionality
-    if 'username' not in login_session:
-        return redirect('/login')
 
     if request.method == 'POST':
         newGame = Game(name=request.form['name'],
@@ -367,7 +374,6 @@ def newGame(studio_id):
         return redirect(url_for('studioGames', studio_id=studio_id))
     else:
         return render_template('newGame.html', studio_id=studio_id)
-
 
 if __name__ == '__main__':
     app.secret_key = "super_secret_key"
