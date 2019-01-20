@@ -35,7 +35,7 @@ Now to view this website, navigate to http://localhost:5000/ on your favorite we
 
 ## JSON endpoints
 there are three endpoints for this website
-* Extracting a spesefic studio's data at `/studios/studio_id/games/JSON` will show
+* Extracting a spesefic studio's data at http://localhost:5000/studios/studio_id/games/JSON will show
 ```
 {
   "Games": [
@@ -58,7 +58,7 @@ there are three endpoints for this website
   ]
 }
 ```
-* Extracting a spesefic game's data at `/studios/studio_id/games/game_id>JSON` will show
+* Extracting a spesefic game's data at http://localhost:5000/studios/studio_id/games/game_id>JSON will show
 ```
 {
   "Game": {
@@ -71,7 +71,7 @@ there are three endpoints for this website
   }
 }
 ```
-* Extracting all studio data at `/studios/JSON` will show
+* Extracting all studio data at http://localhost:5000/studios/JSON will show
 ```
 {
   "Studios": [
