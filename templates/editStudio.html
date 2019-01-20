@@ -6,7 +6,11 @@
       <h1> Edit {{studio.name}}</h1>
       <form action="#" method = 'post'>
          <p>Name:</p>
-         <input type ='text' size='30' name='name' placeholder = '{{studio.name }}'>
+         <input type ='text' size='30' name='name' placeholder = '{{studio.name}}'required>
+         <p>Founded Date:</p>
+         <input type ='text' size='30' name='name' placeholder = '{{studio.founded_date}}'required>
+         <p>Founder:</p>
+         <input type ='text' size='30' name='name' placeholder = '{{studio.founder}}'required>
          <input type='submit' value='Edit'>
          <a href = '{{url_for('showStudios')}}'> Cancel </a>
       </form>

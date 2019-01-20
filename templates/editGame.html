@@ -5,8 +5,16 @@
    <body>
       <h1> Edit Game </h1>
       <form action="#" method = 'post'>
+         <p>Name:</p>
+         <input type ='text' size='30' name='quantity' placeholder = '{{game.name}}' required>
+         <p>Description:</p>
+         <input type ='text' size='30' name='quantity' placeholder = '{{game.description}}' required>
+         <p>Realease Date:</p>
+         <input type ='text' size='30' name='quantity' placeholder = '{{game.release_date}}' required>
          <p>Quantity:</p>
-         <input type ='text' size='30' name='quantity' placeholder = '{{game.quantity}}'>
+         <input type ='text' size='30' name='quantity' placeholder = '{{game.quantity}}' required>
+         <p>Price:</p>
+         <input type ='text' size='30' name='quantity' placeholder = '{{game.price}}' required>
          <input type='submit' value='Edit'>
          <a href = '#'> Cancel </a>
       </form>
