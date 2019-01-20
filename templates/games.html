@@ -5,6 +5,7 @@
    <body>
       <div class = 'pane'>
          <h1>{{ studio.name }}</h1>
+         <!--MESSAGE FLASHING CODE -->
          {% with messages = get_flashed_messages() %}
          {% if messages %}
          <ul>
@@ -14,6 +15,7 @@
          </ul>
          {% endif %}
          {% endwith %}
+         <!--END OF MESSAGE FLASHING CODE -->
          {% if games !=[] %}
          <a href = "{{url_for('newGame', studio_id = studio.id )}}">Add a new game</a>
          </br></br>
